@@ -55,8 +55,10 @@ jobs:
         run: |
           echo "JAVA_HOME=$JAVA_HOME"
           java -version
-          # fail early & loudly if a machine-local JDK path leaked into the config
-          if grep -q "org.gradle.java.home" gradle.properties; then
+          # fail early & loudly if a machine-local JDK path was actually PINNED
+          # (an uncommented org.gradle.java.home= assignment). A mention in a
+          # comment is fine, so anchor to the start of the line.
+          if grep -qE "^[[:space:]]*org\.gradle\.java\.home[[:space:]]*=" gradle.properties; then
             echo "::error::org.gradle.java.home must not be pinned in CI"; exit 1
           fi
           chmod +x gradlew
