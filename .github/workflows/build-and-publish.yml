@@ -1,0 +1,96 @@
+name: Build and Publish
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+  schedule:
+    - cron: "0 4 * * *"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: ${{ github.workflow }}
+  cancel-in-progress: true
+
+jobs:
+  build-and-publish:
+    name: Build extensions and publish repo
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - name: Checkout main branch
+        uses: actions/checkout@v4
+        with:
+          ref: main
+          path: main
+          persist-credentials: false
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v4
+        with:
+          java-version: 17
+          distribution: temurin
+
+      - name: Set up Android SDK
+        uses: android-actions/setup-android@v3
+
+      - name: Set up Gradle
+        uses: gradle/actions/setup-gradle@v4
+
+      - name: Prepare signing key
+        run: |
+          echo "${{ secrets.SIGNING_KEY }}" | base64 -d > main/signingkey.jks
+
+      - name: Build extensions
+        working-directory: main
+        env:
+          ALIAS: ${{ secrets.ALIAS }}
+          KEY_STORE_PASSWORD: ${{ secrets.KEY_STORE_PASSWORD }}
+          KEY_PASSWORD: ${{ secrets.KEY_PASSWORD }}
+        run: |
+          ./gradlew assembleRelease
+
+      - name: Collect build artifacts
+        run: |
+          mkdir -p ~/apk-artifacts
+          # Copy the whole build tree for each extension so publish-repo.py can find
+          # keiyoushi-source-info.json alongside outputs/apk/release and outputs/jar/release.
+          find main/src -type d -name build | while read -r dir; do
+            module_path="${dir%/build}"
+            module_name="$(echo "$module_path" | sed 's#^main/src/##; s#/#-#g')"
+            dest="$HOME/apk-artifacts/$module_name"
+            mkdir -p "$dest"
+            cp -r "$dir/." "$dest/"
+          done
+          echo "==== Collected artifacts ===="
+          find ~/apk-artifacts -name "keiyoushi-source-info.json" -o -name "*.apk" -o -name "*.jar" | sort
+
+      - name: Check out repo branch
+        uses: actions/checkout@v4
+        with:
+          ref: repo
+          path: repo
+          persist-credentials: true
+
+      - name: Generate and publish index
+        env:
+          DELETE: "[]"
+        run: |
+          pip install --quiet protobuf
+          cp main/.github/scripts/index_pb2.py repo/index_pb2.py
+          cd repo
+          python ../main/.github/scripts/publish-repo.py "$DELETE"
+          rm -f index_pb2.py
+          git config user.email "actions@github.com"
+          git config user.name "github-actions[bot]"
+          git status
+          if [ -n "$(git status --porcelain)" ]; then
+            git add .
+            git commit -m "Update extensions repo"
+            git push
+          else
+            echo "No changes to commit"
+          fi
