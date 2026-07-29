@@ -22,9 +22,9 @@ REPO_JAR_DIR = REPO_DIR / "jar"
 REPO_APK_DIR.mkdir(parents=True, exist_ok=True)
 REPO_JAR_DIR.mkdir(parents=True, exist_ok=True)
 
-APK_BASE_URL = "https://cdn.jsdelivr.net/gh/keiyoushi/extensions@repo/apk"
-JAR_BASE_URL = "https://raw.githubusercontent.com/keiyoushi/extensions/repo/jar"
-ICON_BASE_URL = "https://cdn.jsdelivr.net/gh/keiyoushi/extensions-source@main"
+APK_BASE_URL = "https://raw.githubusercontent.com/Roblominmus/yokai-extensions/repo/apk"
+JAR_BASE_URL = "https://raw.githubusercontent.com/Roblominmus/yokai-extensions/repo/jar"
+ICON_BASE_URL = "https://raw.githubusercontent.com/Roblominmus/yokai-extensions/main"
 
 to_delete: list[str] = json.loads(sys.argv[1])
 
@@ -117,11 +117,11 @@ all_extensions.extend(new_extensions)
 all_extensions.sort(key=lambda ext: ext.packageName)
 
 index = index_pb2.Index(
-    name="Keiyoushi",
-    badgeLabel="KEI",
-    signingKey="9add655a78e96c4ec7a53ef89dccb557cb5d767489fac5e785d671a5a75d4da2",
+    name="Yokai Self-Healing Repo",
+    badgeLabel="YOKAI",
+    signingKey="6dde8da289374bb4fb884e9e39ca098e881c556e2fdfb336a551275b7c5577fd",
     contact=index_pb2.Contact(
-        website="https://keiyoushi.github.io", discord="https://discord.gg/3FbCpdKbdY"
+        website="https://github.com/Roblominmus/yokai-extensions"
     ),
     extensionList=index_pb2.ExtensionList(extensions=all_extensions),
 )
