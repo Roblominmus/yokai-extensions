@@ -15,17 +15,46 @@ concurrency:
   group: ${{ github.workflow }}
   cancel-in-progress: true
 
+env:
+  CI_CHUNK_SIZE: 80
+
 jobs:
-  build-and-publish:
-    name: Build extensions and publish repo
+  prepare:
+    name: Prepare job
     runs-on: ubuntu-latest
-    timeout-minutes: 45
+    timeout-minutes: 10
+    outputs:
+      matrix: ${{ steps.generate-matrices.outputs.matrix }}
+      delete: ${{ steps.generate-matrices.outputs.delete }}
     steps:
       - name: Checkout main branch
         uses: actions/checkout@v4
         with:
-          ref: main
-          path: main
+          fetch-depth: 0
+          persist-credentials: false
+
+      - name: Get last successful CI commit
+        uses: nrwl/nx-set-shas@v5
+        with:
+          fallback-sha: 4b825dc642cb6eb9a060e54bf8d69288fbee4904
+
+      - id: generate-matrices
+        name: Create output matrices
+        run: |
+          python ./.github/scripts/generate-build-matrices.py "$NX_BASE" Release
+
+  build:
+    name: Build extensions (${{ matrix.chunk.number }})
+    needs: prepare
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    if: ${{ toJson(fromJson(needs.prepare.outputs.matrix).chunk) != '[]' }}
+    strategy:
+      matrix: ${{ fromJSON(needs.prepare.outputs.matrix) }}
+    steps:
+      - name: Checkout main branch
+        uses: actions/checkout@v4
+        with:
           persist-credentials: false
 
       - name: Set up JDK 17
@@ -42,54 +71,68 @@ jobs:
 
       - name: Prepare signing key
         run: |
-          echo "${{ secrets.SIGNING_KEY }}" | base64 -d > main/signingkey.jks
+          echo "${{ secrets.SIGNING_KEY }}" | base64 -d > signingkey.jks
 
-      - name: Build extensions
-        working-directory: main
+      - name: Build extensions (${{ matrix.chunk.number }})
         env:
+          MODULES: ${{ join(matrix.chunk.modules, ' ') }}
           ALIAS: ${{ secrets.ALIAS }}
           KEY_STORE_PASSWORD: ${{ secrets.KEY_STORE_PASSWORD }}
           KEY_PASSWORD: ${{ secrets.KEY_PASSWORD }}
         run: |
-          ./gradlew assembleRelease
+          ./gradlew $MODULES
 
-      - name: Collect build artifacts
-        run: |
-          mkdir -p ~/apk-artifacts
-          # Copy the whole build tree for each extension so publish-repo.py can find
-          # keiyoushi-source-info.json alongside outputs/apk/release and outputs/jar/release.
-          find main/src -type d -name build | while read -r dir; do
-            module_path="${dir%/build}"
-            module_name="$(echo "$module_path" | sed 's#^main/src/##; s#/#-#g')"
-            dest="$HOME/apk-artifacts/$module_name"
-            mkdir -p "$dest"
-            cp -r "$dir/." "$dest/"
-          done
-          echo "==== Collected artifacts ===="
-          find ~/apk-artifacts -name "keiyoushi-source-info.json" -o -name "*.apk" -o -name "*.jar" | sort
+      - name: Upload APKs (${{ matrix.chunk.number }})
+        uses: actions/upload-artifact@v4
+        with:
+          name: "individual-apks-${{ matrix.chunk.number }}"
+          path: |
+            **/build/outputs/apk/release/*.apk
+            **/build/outputs/jar/release/*.jar
+            **/build/keiyoushi-source-info.json
+          retention-days: 1
 
-      - name: Check out repo branch
+      - name: Clean up CI files
+        if: always()
+        run: rm -f signingkey.jks
+
+  publish:
+    name: Publish extension repo
+    needs: [prepare, build]
+    if: >-
+      always() &&
+      needs.prepare.result == 'success' &&
+      needs.build.result != 'failure' &&
+      needs.build.result != 'cancelled' &&
+      needs.prepare.outputs.delete != '[]'
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Download APK artifacts
+        if: needs.build.result == 'success'
+        uses: actions/download-artifact@v4
+        with:
+          path: ~/apk-artifacts
+
+      - name: Checkout main branch
+        uses: actions/checkout@v4
+        with:
+          ref: main
+          path: main
+          persist-credentials: false
+
+      - name: Checkout repo branch
         uses: actions/checkout@v4
         with:
           ref: repo
           path: repo
           persist-credentials: true
 
-      - name: Generate and publish index
+      - name: Publish and deploy repo
+        env:
+          DELETE: ${{ needs.prepare.outputs.delete }}
         run: |
           pip install --quiet protobuf
-          # This workflow rebuilds every configured extension on each run, so tell
-          # publish-repo.py to purge the previous entries for exactly those modules
-          # before re-adding the freshly built ones (prevents duplicate index entries).
-          DELETE="$(python3 -c "
-          import json, glob
-          modules = []
-          for f in glob.glob('$HOME/apk-artifacts/**/keiyoushi-source-info.json', recursive=True):
-              with open(f, encoding='utf-8') as fh:
-                  modules.append(json.load(fh)['module'])
-          print(json.dumps(sorted(set(modules))))
-          ")"
-          echo "Delete list: $DELETE"
           cp main/.github/scripts/index_pb2.py repo/index_pb2.py
           cd repo
           python ../main/.github/scripts/publish-repo.py "$DELETE"
