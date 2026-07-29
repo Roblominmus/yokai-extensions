@@ -1,0 +1,35 @@
+{
+  "timeout": 25,
+  "_comment": "Per-source health checks. 'non_empty' paths must exist & be non-empty; 'min_items' asserts array length. This is the canary layer — cheap, runs without the Android SDK. A red canary triggers the (real) Gradle build-time validation before any fix is published.",
+  "sources": [
+    {
+      "id": "mangadex",
+      "type": "json",
+      "kt_file": "src/all/mangadex/src/eu/kanade/tachiyomi/extension/all/mangadex/MangaDex.kt",
+      "_note": "Positive control: open API, no token. Should be OK.",
+      "headers": {"Accept": "application/json"},
+      "checks": [
+        {
+          "name": "popular",
+          "url": "https://api.mangadex.org/manga?limit=3&order%5BfollowedCount%5D=desc&contentRating%5B%5D=safe",
+          "non_empty": ["result", "data"],
+          "min_items": {"data": 1}
+        }
+      ]
+    },
+    {
+      "id": "mangafire",
+      "type": "json",
+      "kt_file": "src/all/mangafire/src/eu/kanade/tachiyomi/extension/all/mangafire/MangaFire.kt",
+      "_note": "Token-gated API (see VrfSigner.kt). Expected to classify AUTH_TOKEN without the JS-computed token.",
+      "headers": {"Accept": "application/json", "Referer": "https://mangafire.to/"},
+      "checks": [
+        {
+          "name": "popular",
+          "url": "https://mangafire.to/api/titles?order%5Bviews_30d%5D=desc&page=1",
+          "non_empty": ["result"]
+        }
+      ]
+    }
+  ]
+}

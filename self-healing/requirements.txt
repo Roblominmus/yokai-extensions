@@ -1,0 +1,6 @@
+# Core pipeline is stdlib-only (detector, resolver, validator, evidence all run
+# without pip) so CI needs no install step for JSON sources.
+#
+# Only needed to validate HTML-scraper sources' CSS selectors locally:
+lxml>=5.0
+cssselect>=1.2

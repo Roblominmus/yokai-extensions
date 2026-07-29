@@ -1,0 +1,103 @@
+name: Self-Heal
+
+# Detect broken source selectors and auto-repair them behind a live parse-harness
+# GATE. Only a repair the harness CONFIRMS works is ever committed; anything the
+# gate rejects is reverted and escalated to a GitHub issue instead. A committed fix
+# on `main` triggers build-and-publish to rebuild + republish the repo.
+
+on:
+  workflow_dispatch:
+  schedule:
+    # every 6 hours
+    - cron: "0 */6 * * *"
+
+permissions:
+  contents: write   # commit gate-confirmed repairs to main
+  issues: write     # escalate unrepairable breaks
+
+# Don't overlap with itself; don't fight a concurrent build-and-publish push.
+concurrency:
+  group: self-heal
+  cancel-in-progress: false
+
+jobs:
+  self-heal:
+    name: Detect and heal sources
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - name: Checkout main
+        uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v4
+        with:
+          java-version: "17"
+          distribution: temurin
+
+      # The parse-harness is plain Kotlin/JVM and needs NO Android SDK. But the
+      # heal/build path may later want it, and setup-android is cheap-ish; the
+      # harness itself only uses the JDK from setup-java (JAVA_HOME) — we removed
+      # the machine-local org.gradle.java.home pin from parse-harness/gradle.properties.
+      - name: Set up Android SDK
+        uses: android-actions/setup-android@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Sanity — harness uses the runner JDK
+        working-directory: self-healing/parse-harness
+        run: |
+          echo "JAVA_HOME=$JAVA_HOME"
+          java -version
+          # fail early & loudly if a machine-local JDK path leaked into the config
+          if grep -q "org.gradle.java.home" gradle.properties; then
+            echo "::error::org.gradle.java.home must not be pinned in CI"; exit 1
+          fi
+          chmod +x gradlew
+
+      - name: Configure git identity
+        run: |
+          git config user.email "actions@github.com"
+          git config user.name "github-actions[bot]"
+
+      - name: Run self-heal loop (detect -> repair -> harness gate)
+        id: heal
+        env:
+          # Groq is only called when a source is actually broken. Never printed.
+          GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
+          # gh CLI for escalation issues
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          python3 self-healing/ci_selfheal.py
+
+      - name: Commit gate-confirmed repairs
+        if: steps.heal.outputs.any_committed == 'true'
+        run: |
+          echo "Healed files: ${{ steps.heal.outputs.healed_files }}"
+          git add ${{ steps.heal.outputs.healed_files }}
+          if git diff --cached --quiet; then
+            echo "Nothing staged — repair produced no net change; skipping commit."
+          else
+            git commit -m "${{ steps.heal.outputs.commit_msg }}"
+            git push origin HEAD:main
+            echo "Pushed repair to main — build-and-publish will rebuild + republish."
+          fi
+
+      - name: Report
+        if: always()
+        run: |
+          {
+            echo "### Self-Heal result"
+            echo ""
+            echo "| status | sources |"
+            echo "|---|---|"
+            echo "| HEALTHY | ${{ steps.heal.outputs.healthy || '-' }} |"
+            echo "| HEALED (committed) | ${{ steps.heal.outputs.healed || '-' }} |"
+            echo "| ESCALATED (issue opened) | ${{ steps.heal.outputs.escalated || '-' }} |"
+          } >> "$GITHUB_STEP_SUMMARY"
