@@ -8,6 +8,600 @@
   "extensionList": {
     "extensions": [
       {
+        "name": "Manga Ball",
+        "packageName": "eu.kanade.tachiyomi.extension.all.mangaball",
+        "resources": {
+          "apkUrl": "https://raw.githubusercontent.com/Roblominmus/yokai-extensions/repo/apk/tachiyomi-all.mangaball-v1.4.3.apk",
+          "iconUrl": "https://raw.githubusercontent.com/Roblominmus/yokai-extensions/main/src/all/mangaball/res/mipmap-xhdpi/ic_launcher.png",
+          "jarUrl": "https://raw.githubusercontent.com/Roblominmus/yokai-extensions/repo/jar/tachiyomi-all.mangaball-v1.4.3.jar"
+        },
+        "extensionLib": "1.4",
+        "versionCode": "3",
+        "versionName": "1.4.3",
+        "contentWarning": "CONTENT_WARNING_MIXED",
+        "sources": [
+          {
+            "id": "5763592680824441822",
+            "name": "Manga Ball",
+            "language": "ar",
+            "homeUrl": "https://mangaball.net"
+          },
+          {
+            "id": "8745608410209813897",
+            "name": "Manga Ball",
+            "language": "bg",
+            "homeUrl": "https://mangaball.net"
+          },
+          {
+            "id": "215476983335793342",
+            "name": "Manga Ball",
+            "language": "bn",
+            "homeUrl": "https://mangaball.net"
+          },
+          {
+            "id": "9084885867242726177",
+            "name": "Manga Ball",
+            "language": "ca",
+            "homeUrl": "https://mangaball.net"
+          },
+          {
+            "id": "7169636154814402936",
+            "name": "Manga Ball",
+            "language": "cs",
+            "homeUrl": "https://mangaball.net"
+          },
+          {
+            "id": "3523848676838462162",
+            "name": "Manga Ball",
+            "language": "da",
+            "homeUrl": "https://mangaball.net"
+          },
+          {
+            "id": "1966498126669070992",
+            "name": "Manga Ball",
+            "language": "de",
+            "homeUrl": "https://mangaball.net"
+          },
+          {
+            "id": "5586454452949519981",
+            "name": "Manga Ball",
+            "language": "el",
+            "homeUrl": "https://mangaball.net"
+          },
+          {
+            "id": "1448906013733277368",
+            "name": "Manga Ball",
+            "language": "en",
+            "homeUrl": "https://mangaball.net"
+          },
+          {
+            "id": "2111498029521981284",
+            "name": "Manga Ball",
+            "language": "es",
+            "homeUrl": "https://mangaball.net"
+          },
+          {
+            "id": "5041529786391483797",
+            "name": "Manga Ball",
+            "language": "fa",
+            "homeUrl": "https://mangaball.net"
+          },
+          {
+            "id": "5403969342368317365",
+            "name": "Manga Ball",
+            "language": "fi",
+            "homeUrl": "https://mangaball.net"
+          },
+          {
+            "id": "4804845656972446863",
+            "name": "Manga Ball",
+            "language": "fr",
+            "homeUrl": "https://mangaball.net"
+          },
+          {
+            "id": "2439898977058946574",
+            "name": "Manga Ball",
+            "language": "he",
+            "homeUrl": "https://mangaball.net"
+          },
+          {
+            "id": "3325308670866777803",
+            "name": "Manga Ball",
+            "language": "hi",
+            "homeUrl": "https://mangaball.net"
+          },
+          {
+            "id": "34408487862399605",
+            "name": "Manga Ball",
+            "language": "hu",
+            "homeUrl": "https://mangaball.net"
+          },
+          {
+            "id": "2825403839562372201",
+            "name": "Manga Ball",
+            "language": "id",
+            "homeUrl": "https://mangaball.net"
+          },
+          {
+            "id": "3556430745170330371",
+            "name": "Manga Ball",
+            "language": "it",
+            "homeUrl": "https://mangaball.net"
+          },
+          {
+            "id": "7073775592097997189",
+            "name": "Manga Ball",
+            "language": "is",
+            "homeUrl": "https://mangaball.net"
+          },
+          {
+            "id": "3534664804437641640",
+            "name": "Manga Ball",
+            "language": "ja",
+            "homeUrl": "https://mangaball.net"
+          },
+          {
+            "id": "6595061459576629533",
+            "name": "Manga Ball",
+            "language": "ko",
+            "homeUrl": "https://mangaball.net"
+          },
+          {
+            "id": "8772354233322170397",
+            "name": "Manga Ball",
+            "language": "kn",
+            "homeUrl": "https://mangaball.net"
+          },
+          {
+            "id": "4574102257618973368",
+            "name": "Manga Ball",
+            "language": "ml",
+            "homeUrl": "https://mangaball.net"
+          },
+          {
+            "id": "8221555371810647857",
+            "name": "Manga Ball",
+            "language": "ms",
+            "homeUrl": "https://mangaball.net"
+          },
+          {
+            "id": "615885128031081811",
+            "name": "Manga Ball",
+            "language": "ne",
+            "homeUrl": "https://mangaball.net"
+          },
+          {
+            "id": "5484157652338210397",
+            "name": "Manga Ball",
+            "language": "nl",
+            "homeUrl": "https://mangaball.net"
+          },
+          {
+            "id": "3777339391626194173",
+            "name": "Manga Ball",
+            "language": "no",
+            "homeUrl": "https://mangaball.net"
+          },
+          {
+            "id": "5768573366655393544",
+            "name": "Manga Ball",
+            "language": "pl",
+            "homeUrl": "https://mangaball.net"
+          },
+          {
+            "id": "35546023386335815",
+            "name": "Manga Ball",
+            "language": "pt-BR",
+            "homeUrl": "https://mangaball.net"
+          },
+          {
+            "id": "3357030332736127152",
+            "name": "Manga Ball",
+            "language": "ro",
+            "homeUrl": "https://mangaball.net"
+          },
+          {
+            "id": "7203647082681930008",
+            "name": "Manga Ball",
+            "language": "ru",
+            "homeUrl": "https://mangaball.net"
+          },
+          {
+            "id": "8131533018433339643",
+            "name": "Manga Ball",
+            "language": "sk",
+            "homeUrl": "https://mangaball.net"
+          },
+          {
+            "id": "1966275254426034210",
+            "name": "Manga Ball",
+            "language": "sl",
+            "homeUrl": "https://mangaball.net"
+          },
+          {
+            "id": "7985165645382797194",
+            "name": "Manga Ball",
+            "language": "sq",
+            "homeUrl": "https://mangaball.net"
+          },
+          {
+            "id": "4654428466578189678",
+            "name": "Manga Ball",
+            "language": "sr",
+            "homeUrl": "https://mangaball.net"
+          },
+          {
+            "id": "4940984854904039527",
+            "name": "Manga Ball",
+            "language": "sv",
+            "homeUrl": "https://mangaball.net"
+          },
+          {
+            "id": "1133911619191823359",
+            "name": "Manga Ball",
+            "language": "ta",
+            "homeUrl": "https://mangaball.net"
+          },
+          {
+            "id": "6778483817278233868",
+            "name": "Manga Ball",
+            "language": "th",
+            "homeUrl": "https://mangaball.net"
+          },
+          {
+            "id": "8648105733020574748",
+            "name": "Manga Ball",
+            "language": "tr",
+            "homeUrl": "https://mangaball.net"
+          },
+          {
+            "id": "6193642890428176406",
+            "name": "Manga Ball",
+            "language": "uk",
+            "homeUrl": "https://mangaball.net"
+          },
+          {
+            "id": "117702463567484484",
+            "name": "Manga Ball",
+            "language": "vi",
+            "homeUrl": "https://mangaball.net"
+          },
+          {
+            "id": "1555837267200004397",
+            "name": "Manga Ball",
+            "language": "zh",
+            "homeUrl": "https://mangaball.net"
+          }
+        ]
+      },
+      {
+        "name": "MangaFire",
+        "packageName": "eu.kanade.tachiyomi.extension.all.mangafire",
+        "resources": {
+          "apkUrl": "https://raw.githubusercontent.com/Roblominmus/yokai-extensions/repo/apk/tachiyomi-all.mangafire-v1.6.27.apk",
+          "iconUrl": "https://raw.githubusercontent.com/Roblominmus/yokai-extensions/main/src/all/mangafire/res/mipmap-xhdpi/ic_launcher.png",
+          "jarUrl": "https://raw.githubusercontent.com/Roblominmus/yokai-extensions/repo/jar/tachiyomi-all.mangafire-v1.6.27.jar"
+        },
+        "extensionLib": "1.6",
+        "versionCode": "27",
+        "versionName": "1.6.27",
+        "contentWarning": "CONTENT_WARNING_MIXED",
+        "sources": [
+          {
+            "id": "6084907896154116083",
+            "name": "MangaFire",
+            "language": "en",
+            "homeUrl": "https://mangafire.to"
+          },
+          {
+            "id": "8098539940032331958",
+            "name": "MangaFire",
+            "language": "es",
+            "homeUrl": "https://mangafire.to"
+          },
+          {
+            "id": "3849324770075062403",
+            "name": "MangaFire",
+            "language": "es-419",
+            "homeUrl": "https://mangafire.to"
+          },
+          {
+            "id": "6228021941803932286",
+            "name": "MangaFire",
+            "language": "fr",
+            "homeUrl": "https://mangafire.to"
+          },
+          {
+            "id": "524110931382140732",
+            "name": "MangaFire",
+            "language": "ja",
+            "homeUrl": "https://mangafire.to"
+          },
+          {
+            "id": "758400875161895515",
+            "name": "MangaFire",
+            "language": "pt",
+            "homeUrl": "https://mangafire.to"
+          },
+          {
+            "id": "7842137233968841729",
+            "name": "MangaFire",
+            "language": "pt-BR",
+            "homeUrl": "https://mangafire.to"
+          }
+        ]
+      },
+      {
+        "name": "MangaForFree.net",
+        "packageName": "eu.kanade.tachiyomi.extension.all.mangaforfree",
+        "resources": {
+          "apkUrl": "https://raw.githubusercontent.com/Roblominmus/yokai-extensions/repo/apk/tachiyomi-all.mangaforfree-v1.4.54.apk",
+          "iconUrl": "https://raw.githubusercontent.com/Roblominmus/yokai-extensions/main/src/all/mangaforfree/res/mipmap-xhdpi/ic_launcher.png",
+          "jarUrl": "https://raw.githubusercontent.com/Roblominmus/yokai-extensions/repo/jar/tachiyomi-all.mangaforfree-v1.4.54.jar"
+        },
+        "extensionLib": "1.4",
+        "versionCode": "54",
+        "versionName": "1.4.54",
+        "contentWarning": "CONTENT_WARNING_NSFW",
+        "sources": [
+          {
+            "id": "7450882931813509619",
+            "name": "MangaForFree.net",
+            "language": "en",
+            "homeUrl": "https://mangaforfree.net"
+          },
+          {
+            "id": "2115363546279045008",
+            "name": "MangaForFree.net",
+            "language": "ko",
+            "homeUrl": "https://mangaforfree.net"
+          },
+          {
+            "id": "3147518065805706",
+            "name": "MangaForFree.net",
+            "language": "all",
+            "homeUrl": "https://mangaforfree.net"
+          }
+        ]
+      },
+      {
+        "name": "Manhwa18.cc",
+        "packageName": "eu.kanade.tachiyomi.extension.all.manhwa18cc",
+        "resources": {
+          "apkUrl": "https://raw.githubusercontent.com/Roblominmus/yokai-extensions/repo/apk/tachiyomi-all.manhwa18cc-v1.4.59.apk",
+          "iconUrl": "https://raw.githubusercontent.com/Roblominmus/yokai-extensions/main/src/all/manhwa18cc/res/mipmap-xhdpi/ic_launcher.png",
+          "jarUrl": "https://raw.githubusercontent.com/Roblominmus/yokai-extensions/repo/jar/tachiyomi-all.manhwa18cc-v1.4.59.jar"
+        },
+        "extensionLib": "1.4",
+        "versionCode": "59",
+        "versionName": "1.4.59",
+        "contentWarning": "CONTENT_WARNING_NSFW",
+        "sources": [
+          {
+            "id": "4841602236575491202",
+            "name": "Manhwa18.cc",
+            "language": "en",
+            "homeUrl": "https://manhwa18.cc"
+          },
+          {
+            "id": "6864643444164576223",
+            "name": "Manhwa18.cc",
+            "language": "ko",
+            "homeUrl": "https://manhwa18.cc"
+          },
+          {
+            "id": "993336618407081332",
+            "name": "Manhwa18.cc",
+            "language": "all",
+            "homeUrl": "https://manhwa18.cc"
+          }
+        ]
+      },
+      {
+        "name": "Manhwa18.net",
+        "packageName": "eu.kanade.tachiyomi.extension.all.manhwa18net",
+        "resources": {
+          "apkUrl": "https://raw.githubusercontent.com/Roblominmus/yokai-extensions/repo/apk/tachiyomi-all.manhwa18net-v1.4.13.apk",
+          "iconUrl": "https://raw.githubusercontent.com/Roblominmus/yokai-extensions/main/src/all/manhwa18net/res/mipmap-xhdpi/ic_launcher.png",
+          "jarUrl": "https://raw.githubusercontent.com/Roblominmus/yokai-extensions/repo/jar/tachiyomi-all.manhwa18net-v1.4.13.jar"
+        },
+        "extensionLib": "1.4",
+        "versionCode": "13",
+        "versionName": "1.4.13",
+        "contentWarning": "CONTENT_WARNING_NSFW",
+        "sources": [
+          {
+            "id": "687150405919946955",
+            "name": "Manhwa18.Net",
+            "language": "en",
+            "homeUrl": "https://manhwa18.net"
+          }
+        ]
+      },
+      {
+        "name": "Webtoons.com",
+        "packageName": "eu.kanade.tachiyomi.extension.all.webtoons",
+        "resources": {
+          "apkUrl": "https://raw.githubusercontent.com/Roblominmus/yokai-extensions/repo/apk/tachiyomi-all.webtoons-v1.4.56.apk",
+          "iconUrl": "https://raw.githubusercontent.com/Roblominmus/yokai-extensions/main/src/all/webtoons/res/mipmap-xhdpi/ic_launcher.png",
+          "jarUrl": "https://raw.githubusercontent.com/Roblominmus/yokai-extensions/repo/jar/tachiyomi-all.webtoons-v1.4.56.jar"
+        },
+        "extensionLib": "1.4",
+        "versionCode": "56",
+        "versionName": "1.4.56",
+        "contentWarning": "CONTENT_WARNING_SAFE",
+        "sources": [
+          {
+            "id": "2522335540328470744",
+            "name": "Webtoons.com",
+            "language": "en",
+            "homeUrl": "https://www.webtoons.com"
+          },
+          {
+            "id": "8749627068478740298",
+            "name": "Webtoons.com",
+            "language": "id",
+            "homeUrl": "https://www.webtoons.com"
+          },
+          {
+            "id": "3330861233813615504",
+            "name": "Webtoons.com",
+            "language": "th",
+            "homeUrl": "https://www.webtoons.com"
+          },
+          {
+            "id": "8664735734660636295",
+            "name": "Webtoons.com",
+            "language": "es",
+            "homeUrl": "https://www.webtoons.com"
+          },
+          {
+            "id": "8251758253314457060",
+            "name": "Webtoons.com",
+            "language": "fr",
+            "homeUrl": "https://www.webtoons.com"
+          },
+          {
+            "id": "2959982438613576472",
+            "name": "Webtoons.com",
+            "language": "zh-Hant",
+            "homeUrl": "https://www.webtoons.com"
+          },
+          {
+            "id": "1486822823904297379",
+            "name": "Webtoons.com",
+            "language": "de",
+            "homeUrl": "https://www.webtoons.com"
+          }
+        ]
+      },
+      {
+        "name": "AllManga",
+        "packageName": "eu.kanade.tachiyomi.extension.en.allanime",
+        "resources": {
+          "apkUrl": "https://raw.githubusercontent.com/Roblominmus/yokai-extensions/repo/apk/tachiyomi-en.allanime-v1.6.25.apk",
+          "iconUrl": "https://raw.githubusercontent.com/Roblominmus/yokai-extensions/main/src/en/allanime/res/mipmap-xhdpi/ic_launcher.png",
+          "jarUrl": "https://raw.githubusercontent.com/Roblominmus/yokai-extensions/repo/jar/tachiyomi-en.allanime-v1.6.25.jar"
+        },
+        "extensionLib": "1.6",
+        "versionCode": "25",
+        "versionName": "1.6.25",
+        "contentWarning": "CONTENT_WARNING_MIXED",
+        "sources": [
+          {
+            "id": "4709139914729853090",
+            "name": "AllManga",
+            "language": "en",
+            "homeUrl": "https://mkissa.to"
+          }
+        ]
+      },
+      {
+        "name": "Asura Scans",
+        "packageName": "eu.kanade.tachiyomi.extension.en.asurascans",
+        "resources": {
+          "apkUrl": "https://raw.githubusercontent.com/Roblominmus/yokai-extensions/repo/apk/tachiyomi-en.asurascans-v1.6.66.apk",
+          "iconUrl": "https://raw.githubusercontent.com/Roblominmus/yokai-extensions/main/src/en/asurascans/res/mipmap-xhdpi/ic_launcher.png",
+          "jarUrl": "https://raw.githubusercontent.com/Roblominmus/yokai-extensions/repo/jar/tachiyomi-en.asurascans-v1.6.66.jar"
+        },
+        "extensionLib": "1.6",
+        "versionCode": "66",
+        "versionName": "1.6.66",
+        "contentWarning": "CONTENT_WARNING_SAFE",
+        "sources": [
+          {
+            "id": "6247824327199706550",
+            "name": "Asura Scans",
+            "language": "en",
+            "homeUrl": "https://asurascans.com"
+          }
+        ]
+      },
+      {
+        "name": "Lagoon Scans",
+        "packageName": "eu.kanade.tachiyomi.extension.en.lagoonscans",
+        "resources": {
+          "apkUrl": "https://raw.githubusercontent.com/Roblominmus/yokai-extensions/repo/apk/tachiyomi-en.lagoonscans-v1.4.32.apk",
+          "iconUrl": "https://raw.githubusercontent.com/Roblominmus/yokai-extensions/main/src/en/lagoonscans/res/mipmap-xhdpi/ic_launcher.png",
+          "jarUrl": "https://raw.githubusercontent.com/Roblominmus/yokai-extensions/repo/jar/tachiyomi-en.lagoonscans-v1.4.32.jar"
+        },
+        "extensionLib": "1.4",
+        "versionCode": "32",
+        "versionName": "1.4.32",
+        "contentWarning": "CONTENT_WARNING_SAFE",
+        "sources": [
+          {
+            "id": "7925933833035450162",
+            "name": "Lagoon Scans",
+            "language": "en",
+            "homeUrl": "https://lagoonscans.com"
+          }
+        ]
+      },
+      {
+        "name": "Manga Demon",
+        "packageName": "eu.kanade.tachiyomi.extension.en.mangademon",
+        "resources": {
+          "apkUrl": "https://raw.githubusercontent.com/Roblominmus/yokai-extensions/repo/apk/tachiyomi-en.mangademon-v1.4.20.apk",
+          "iconUrl": "https://raw.githubusercontent.com/Roblominmus/yokai-extensions/main/src/en/mangademon/res/mipmap-xhdpi/ic_launcher.png",
+          "jarUrl": "https://raw.githubusercontent.com/Roblominmus/yokai-extensions/repo/jar/tachiyomi-en.mangademon-v1.4.20.jar"
+        },
+        "extensionLib": "1.4",
+        "versionCode": "20",
+        "versionName": "1.4.20",
+        "contentWarning": "CONTENT_WARNING_SAFE",
+        "sources": [
+          {
+            "id": "2900023289777642714",
+            "name": "Manga Demon",
+            "language": "en",
+            "homeUrl": "https://demonicscans.org"
+          }
+        ]
+      },
+      {
+        "name": "MangaGG",
+        "packageName": "eu.kanade.tachiyomi.extension.en.mangagg",
+        "resources": {
+          "apkUrl": "https://raw.githubusercontent.com/Roblominmus/yokai-extensions/repo/apk/tachiyomi-en.mangagg-v1.4.55.apk",
+          "iconUrl": "https://raw.githubusercontent.com/Roblominmus/yokai-extensions/main/src/en/mangagg/res/mipmap-xhdpi/ic_launcher.png",
+          "jarUrl": "https://raw.githubusercontent.com/Roblominmus/yokai-extensions/repo/jar/tachiyomi-en.mangagg-v1.4.55.jar"
+        },
+        "extensionLib": "1.4",
+        "versionCode": "55",
+        "versionName": "1.4.55",
+        "contentWarning": "CONTENT_WARNING_MIXED",
+        "sources": [
+          {
+            "id": "8173282214298911566",
+            "name": "MangaGG",
+            "language": "en",
+            "homeUrl": "https://mangagg.com"
+          }
+        ]
+      },
+      {
+        "name": "MangaNel",
+        "packageName": "eu.kanade.tachiyomi.extension.en.manganel",
+        "resources": {
+          "apkUrl": "https://raw.githubusercontent.com/Roblominmus/yokai-extensions/repo/apk/tachiyomi-en.manganel-v1.6.36.apk",
+          "iconUrl": "https://raw.githubusercontent.com/Roblominmus/yokai-extensions/main/lib-multisrc/mangahub/res/mipmap-xhdpi/ic_launcher.png",
+          "jarUrl": "https://raw.githubusercontent.com/Roblominmus/yokai-extensions/repo/jar/tachiyomi-en.manganel-v1.6.36.jar"
+        },
+        "extensionLib": "1.6",
+        "versionCode": "36",
+        "versionName": "1.6.36",
+        "contentWarning": "CONTENT_WARNING_MIXED",
+        "sources": [
+          {
+            "id": "678343830630527432",
+            "name": "MangaNel",
+            "language": "en",
+            "homeUrl": "https://manganel.me"
+          }
+        ]
+      },
+      {
         "name": "MangaPill",
         "packageName": "eu.kanade.tachiyomi.extension.en.mangapill",
         "resources": {
@@ -25,6 +619,48 @@
             "name": "MangaPill",
             "language": "en",
             "homeUrl": "https://mangapill.com"
+          }
+        ]
+      },
+      {
+        "name": "Omega Scans",
+        "packageName": "eu.kanade.tachiyomi.extension.en.omegascans",
+        "resources": {
+          "apkUrl": "https://raw.githubusercontent.com/Roblominmus/yokai-extensions/repo/apk/tachiyomi-en.omegascans-v1.6.51.apk",
+          "iconUrl": "https://raw.githubusercontent.com/Roblominmus/yokai-extensions/main/src/en/omegascans/res/mipmap-xhdpi/ic_launcher.png",
+          "jarUrl": "https://raw.githubusercontent.com/Roblominmus/yokai-extensions/repo/jar/tachiyomi-en.omegascans-v1.6.51.jar"
+        },
+        "extensionLib": "1.6",
+        "versionCode": "51",
+        "versionName": "1.6.51",
+        "contentWarning": "CONTENT_WARNING_NSFW",
+        "sources": [
+          {
+            "id": "1534451209269193504",
+            "name": "Omega Scans",
+            "language": "en",
+            "homeUrl": "https://omegascans.org"
+          }
+        ]
+      },
+      {
+        "name": "Toonily",
+        "packageName": "eu.kanade.tachiyomi.extension.en.toonily",
+        "resources": {
+          "apkUrl": "https://raw.githubusercontent.com/Roblominmus/yokai-extensions/repo/apk/tachiyomi-en.toonily-v1.4.67.apk",
+          "iconUrl": "https://raw.githubusercontent.com/Roblominmus/yokai-extensions/main/src/en/toonily/res/mipmap-xhdpi/ic_launcher.png",
+          "jarUrl": "https://raw.githubusercontent.com/Roblominmus/yokai-extensions/repo/jar/tachiyomi-en.toonily-v1.4.67.jar"
+        },
+        "extensionLib": "1.4",
+        "versionCode": "67",
+        "versionName": "1.4.67",
+        "contentWarning": "CONTENT_WARNING_MIXED",
+        "sources": [
+          {
+            "id": "5190569675461947007",
+            "name": "Toonily",
+            "language": "en",
+            "homeUrl": "https://toonily.com"
           }
         ]
       },
