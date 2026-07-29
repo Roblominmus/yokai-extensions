@@ -76,10 +76,20 @@ jobs:
           persist-credentials: true
 
       - name: Generate and publish index
-        env:
-          DELETE: "[]"
         run: |
           pip install --quiet protobuf
+          # This workflow rebuilds every configured extension on each run, so tell
+          # publish-repo.py to purge the previous entries for exactly those modules
+          # before re-adding the freshly built ones (prevents duplicate index entries).
+          DELETE="$(python3 -c "
+          import json, glob
+          modules = []
+          for f in glob.glob('$HOME/apk-artifacts/**/keiyoushi-source-info.json', recursive=True):
+              with open(f, encoding='utf-8') as fh:
+                  modules.append(json.load(fh)['module'])
+          print(json.dumps(sorted(set(modules))))
+          ")"
+          echo "Delete list: $DELETE"
           cp main/.github/scripts/index_pb2.py repo/index_pb2.py
           cd repo
           python ../main/.github/scripts/publish-repo.py "$DELETE"
