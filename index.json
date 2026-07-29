@@ -11,27 +11,6 @@
         "name": "MangaPill",
         "packageName": "eu.kanade.tachiyomi.extension.en.mangapill",
         "resources": {
-          "apkUrl": "https://cdn.jsdelivr.net/gh/keiyoushi/extensions@repo/apk/tachiyomi-en.mangapill-v1.4.9.apk",
-          "iconUrl": "https://cdn.jsdelivr.net/gh/keiyoushi/extensions-source@main/src/en/mangapill/res/mipmap-xhdpi/ic_launcher.png",
-          "jarUrl": "https://raw.githubusercontent.com/keiyoushi/extensions/repo/jar/tachiyomi-en.mangapill-v1.4.9.jar"
-        },
-        "extensionLib": "1.4",
-        "versionCode": "9",
-        "versionName": "1.4.9",
-        "contentWarning": "CONTENT_WARNING_MIXED",
-        "sources": [
-          {
-            "id": "8448310129093543312",
-            "name": "MangaPill",
-            "language": "en",
-            "homeUrl": "https://mangapill.com"
-          }
-        ]
-      },
-      {
-        "name": "MangaPill",
-        "packageName": "eu.kanade.tachiyomi.extension.en.mangapill",
-        "resources": {
           "apkUrl": "https://raw.githubusercontent.com/Roblominmus/yokai-extensions/repo/apk/tachiyomi-en.mangapill-v1.4.9.apk",
           "iconUrl": "https://raw.githubusercontent.com/Roblominmus/yokai-extensions/main/src/en/mangapill/res/mipmap-xhdpi/ic_launcher.png",
           "jarUrl": "https://raw.githubusercontent.com/Roblominmus/yokai-extensions/repo/jar/tachiyomi-en.mangapill-v1.4.9.jar"
@@ -46,27 +25,6 @@
             "name": "MangaPill",
             "language": "en",
             "homeUrl": "https://mangapill.com"
-          }
-        ]
-      },
-      {
-        "name": "Weeb Central",
-        "packageName": "eu.kanade.tachiyomi.extension.en.weebcentral",
-        "resources": {
-          "apkUrl": "https://cdn.jsdelivr.net/gh/keiyoushi/extensions@repo/apk/tachiyomi-en.weebcentral-v1.6.24.apk",
-          "iconUrl": "https://cdn.jsdelivr.net/gh/keiyoushi/extensions-source@main/src/en/weebcentral/res/mipmap-xhdpi/ic_launcher.png",
-          "jarUrl": "https://raw.githubusercontent.com/keiyoushi/extensions/repo/jar/tachiyomi-en.weebcentral-v1.6.24.jar"
-        },
-        "extensionLib": "1.6",
-        "versionCode": "24",
-        "versionName": "1.6.24",
-        "contentWarning": "CONTENT_WARNING_MIXED",
-        "sources": [
-          {
-            "id": "2131019126180322627",
-            "name": "Weeb Central",
-            "language": "en",
-            "homeUrl": "https://weebcentral.com"
           }
         ]
       },
