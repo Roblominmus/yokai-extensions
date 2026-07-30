@@ -65,15 +65,16 @@ abstract class AllManga :
             ),
         )
 
-        val json = apiCall(payload.toString())
-        val data = json.parseGraphQLAs<PopularData>()
+        client.post(apiUrl, payload).use { response ->
+            val data = response.parseGraphQLAs<PopularData>()
 
-        val mangaList = data.popular.mangas
-            .mapNotNull { it.manga?.toSManga() }
+            val mangaList = data.popular.mangas
+                .mapNotNull { it.manga?.toSManga() }
 
-        val hasNextPage = data.popular.mangas.size == LIMIT
+            val hasNextPage = data.popular.mangas.size == LIMIT
 
-        return MangasPage(mangaList, hasNextPage)
+            return MangasPage(mangaList, hasNextPage)
+        }
     }
 
     override suspend fun getLatestUpdates(page: Int): MangasPage = getSearchMangaList(page, "", FilterList())
@@ -98,11 +99,16 @@ abstract class AllManga :
             ),
         )
 
-        val json = apiCall(payload.toString())
-        val data = json.parseGraphQLAs<SearchData>()
-        val mangaList = data.mangas.edges.map(SearchManga::toSManga)
-        val hasNextPage = data.mangas.edges.size == LIMIT
-        return MangasPage(mangaList, hasNextPage)
+        client.post(apiUrl, payload).use { response ->
+            val data = response.parseGraphQLAs<SearchData>()
+
+            val mangaList = data.mangas.edges
+                .map(SearchManga::toSManga)
+
+            val hasNextPage = data.mangas.edges.size == LIMIT
+
+            return MangasPage(mangaList, hasNextPage)
+        }
     }
 
     override suspend fun getMangaByUrl(url: HttpUrl): SManga? {
@@ -155,7 +161,7 @@ abstract class AllManga :
         for (attempt in 0..MAX_RETRIES) {
             if (attempt > 0) delay(retryDelay)
             try {
-                val result = apiCall(payload.toString()).parseGraphQLAs<MangaUpdateData>()
+                val result = client.post(apiUrl, payload).parseGraphQLAs<MangaUpdateData>()
                 if (result.manga != null) {
                     data = result
                     break
@@ -212,7 +218,7 @@ abstract class AllManga :
             ),
         )
 
-        val data = apiCall(payload.toString()).parseGraphQLAs<RelatedData>()
+        val data = client.post(apiUrl, payload).parseGraphQLAs<RelatedData>()
 
         return (data.mangasWithIds.orEmpty() + data.search?.edges.orEmpty() + data.fewerGenresSearch?.edges.orEmpty())
             .distinctBy { it.id }
@@ -236,18 +242,6 @@ abstract class AllManga :
         val mangaId = chapter.memo["mangaId"]?.string ?: throw Exception("Refresh Chapter List")
         val mangaUrl = "$baseUrl/manga/$mangaId"
         val chapterUrl = getChapterUrl(chapter).toHttpUrl().encodedPath
-
-        val document = client.get(mangaUrl, ensureSuccess = false).use { response ->
-            if (!response.isSuccessful) {
-                if (response.code == 403 || response.code == 503) {
-                    throw Exception("Solve captcha in WebView and retry")
-                } else {
-                    throw HttpException(response.code)
-                }
-            }
-
-            response.asJsoup()
-        }
 
         val payload = runWebView {
             blockImages = true
@@ -309,11 +303,11 @@ abstract class AllManga :
                 resolve(it)
             }
 
-            onPageStarted {
+            onPageFinished {
                 evaluateJs(script)
             }
 
-            loadData(mangaUrl, document.outerHtml())
+            loadUrl(mangaUrl, headers.toMultimap().mapValues { it.value.getOrNull(0) ?: "" })
         }
 
         val pageListData = payload.parseAs<PageListData>().pageList
@@ -387,21 +381,7 @@ abstract class AllManga :
     private val SharedPreferences.imageQuality
         get() = getString(IMAGE_QUALITY_PREF, IMAGE_QUALITY_PREF_DEFAULT)!!
 
-    /** Try OkHttp first; on failure, fall back to WebView (real browser engine). */
-    private suspend fun apiCall(payload: String): String {
-        try {
-            return client.post(apiUrl, payload).body.string()
-        } catch (_: Exception) {
-            // OkHttp blocked — use WebView as browser-engine fallback
-        }
-        val escaped = payload.replace("\\", "\\\\").replace("'", "\\'")
-        return runWebView {
-            userAgent = headers["User-Agent"]!!
-            evaluateJavascript(
-                "(async()=>{const r=await fetch('$apiUrl',{method:'POST',headers:{'Content-Type':'application/json'},body:'$escaped'});return await r.text();})();"
-            ) { result -> result?.trim('"')?.let { it } ?: throw Exception("WebView API call empty") }
-        }.replace("\\\"", "\"").replace("\\n", "\n").replace("\\/", "/")
-    }
+
 }
 
 private const val LIMIT = 20
