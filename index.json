@@ -7927,13 +7927,13 @@
         "name": "AllManga",
         "packageName": "eu.kanade.tachiyomi.extension.en.allanime",
         "resources": {
-          "apkUrl": "https://raw.githubusercontent.com/Roblominmus/yokai-extensions/repo/apk/tachiyomi-en.allanime-v1.6.25.apk",
+          "apkUrl": "https://raw.githubusercontent.com/Roblominmus/yokai-extensions/repo/apk/tachiyomi-en.allanime-v1.6.26.apk",
           "iconUrl": "https://raw.githubusercontent.com/Roblominmus/yokai-extensions/main/src/en/allanime/res/mipmap-xhdpi/ic_launcher.png",
-          "jarUrl": "https://raw.githubusercontent.com/Roblominmus/yokai-extensions/repo/jar/tachiyomi-en.allanime-v1.6.25.jar"
+          "jarUrl": "https://raw.githubusercontent.com/Roblominmus/yokai-extensions/repo/jar/tachiyomi-en.allanime-v1.6.26.jar"
         },
         "extensionLib": "1.6",
-        "versionCode": "25",
-        "versionName": "1.6.25",
+        "versionCode": "26",
+        "versionName": "1.6.26",
         "contentWarning": "CONTENT_WARNING_MIXED",
         "sources": [
           {
