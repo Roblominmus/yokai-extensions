@@ -18,9 +18,12 @@ ARTIFACTS_DIR = Path.home() / "apk-artifacts"
 # The checked-out `repo` branch we publish into (the working directory).
 REPO_DIR = Path.cwd()
 REPO_APK_DIR = REPO_DIR / "apk"
+REPO_APK_DIR = REPO_DIR / "apk"
 REPO_JAR_DIR = REPO_DIR / "jar"
+REPO_ICON_DIR = REPO_DIR / "icon"
 REPO_APK_DIR.mkdir(parents=True, exist_ok=True)
 REPO_JAR_DIR.mkdir(parents=True, exist_ok=True)
+REPO_ICON_DIR.mkdir(parents=True, exist_ok=True)
 
 APK_BASE_URL = "https://raw.githubusercontent.com/Roblominmus/yokai-extensions/repo/apk"
 JAR_BASE_URL = "https://raw.githubusercontent.com/Roblominmus/yokai-extensions/repo/jar"
@@ -36,6 +39,10 @@ for module in to_delete:
     for file in REPO_JAR_DIR.glob(f"tachiyomi-{module}-v*.*.*.jar"):
         print(f"removing {file.name}")
         file.unlink(missing_ok=True)
+    # Also remove stale icons (rebuilt ones will be re-added below)
+    for file in REPO_ICON_DIR.glob(f"*.{module}.png"):
+        print(f"removing {file.name}")
+        file.unlink(missing_ok=True)
 
 # Build index entries for the freshly built apks. Each extension's metadata comes from the
 # source-info JSON emitted by its assembleRelease task (see GenerateSourceInfoTask); its APK is a
@@ -44,6 +51,20 @@ new_extensions: list[index_pb2.Extension] = []
 
 SOURCE_DIR = Path(__file__).resolve().parents[2]
 ICON_FILE = "res/mipmap-xhdpi/ic_launcher.png"
+
+
+def get_icon_path(module: str, theme: str | None) -> Path | None:
+    module_icon = f"src/{module.replace('.', '/')}/{ICON_FILE}"
+    if (SOURCE_DIR / module_icon).exists():
+        return SOURCE_DIR / module_icon
+    if theme:
+        theme_icon = f"lib-multisrc/{theme}/{ICON_FILE}"
+        if (SOURCE_DIR / theme_icon).exists():
+            return SOURCE_DIR / theme_icon
+    fallback = SOURCE_DIR / "core/src/main" / ICON_FILE
+    if fallback.exists():
+        return fallback
+    return None
 
 
 def get_icon_url(module: str, theme: str | None) -> str:
@@ -77,6 +98,11 @@ for info_file in ARTIFACTS_DIR.glob("**/keiyoushi-source-info.json"):
             f"{package_name}: no release jar found under {info_file.parent}"
         )
     (REPO_JAR_DIR / jar.name).write_bytes(jar.read_bytes())
+
+    # Copy extension icon to repo icon/ directory
+    icon_src = get_icon_path(info["module"], info.get("theme"))
+    if icon_src is not None:
+        (REPO_ICON_DIR / f"{package_name}.png").write_bytes(icon_src.read_bytes())
 
     new_extensions.append(
         index_pb2.Extension(
